@@ -18,32 +18,24 @@
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
-# Set up Chrome options
-chrome_options = Options()
-chrome_options.add_argument("--headless")  # Run in headless mode
-
-# Set up the Chrome WebDriver
-service = Service('/path/to/chromedriver')  # Replace with the path to your WebDriver
-
+urls = ["https://www.budgetbytes.com/bacon-spinach-pasta-parmesan/"]
 
 def main():
-    driver = webdriver.Chrome(service=service, options=chrome_options)
-
-    urls = ["https://www.budgetbytes.com/bacon-spinach-pasta-parmesan/"]
-
+    # initialize the chrome driver
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    driver = webdriver.Chrome(options = chrome_options)
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    # Iterate through 'urls' and do what's inside the loop to every url
     for url in urls:
         driver.get(url)
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-
+        # Get title
         title = soup.h1.get_text()
-
-        driver.close()
+        # Get 
         print(title)
-
+    driver.close() # Close the driver instance
 
 if __name__ == "__main__":
     main()
