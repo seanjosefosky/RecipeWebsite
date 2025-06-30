@@ -52,6 +52,3 @@ def new_steps(recipe_id, step_number, step_description):
 def new_domain(domain_name):
     cur.execute('''INSERT OR REPLACE INTO domains (domain_name) VALUES (?)''', (domain_name,))
     con.commit()
-
-
-
